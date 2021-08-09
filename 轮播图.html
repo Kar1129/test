@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        img {
+            width: 500px;
+            height: 500px;
+        }
+
+        #outer {
+            width: 520px;
+            height: 500px;
+            margin: 50px auto;
+            background-color: darkturquoise;
+            padding: 10px 0px;
+            position: relative;
+            /* 子元素开启绝对定位，最好给父元素开启相对定位，让ul相对div定位 */
+
+            /* 裁剪左右两边溢出的内容 */
+            overflow: hidden;
+        }
+
+        #imglist {
+            /* width: 3120px; */
+            /* (10 + 500 + 10) * 6张图 */
+            list-style-type: none;
+            position: absolute;
+            left: 0px;
+
+        }
+
+        #imglist li {
+            margin: 0px 10px;
+            float: left;
+        }
+
+        #navDiv {
+            position: absolute;
+            bottom: 20px;
+            /* left: 200px; */
+        }
+
+        #navDiv a {
+            float: left;
+            width: 10px;
+            height: 10px;
+            background-color: red;
+            margin: 0px 5px;
+            /* 透明 */
+            opacity: 0.5;
+        }
+
+        #navDiv a:hover {
+            background-color: blue;
+        }
+    </style>
+    <script src="./定时器tools.js"></script>
+    <script>
+        window.onload = function () {
+            // 自动设置 imglist 宽度(多一张图或少一张图自动修改)
+            var imglist = document.getElementById("imglist");
+            var imgArr = document.getElementsByTagName("img");
+            imglist.style.width = (10 + 500 + 10) * imgArr.length + "px";
+
+            // 自动使导航按钮居中
+            var navDiv = document.getElementById("navDiv");
+            var outer = document.getElementById("outer");
+            navDiv.style.left = (outer.offsetWidth - navDiv.offsetWidth) / 2 + "px";
+
+            var index = 0;
+            var allA = document.getElementsByTagName("a");
+            allA[index].style.backgroundColor = "blue";
+
+            // 点击超链接切换到指定图片
+            for (var i = 0; i < allA.length; i++) {
+                // 为每个超链接添加一个num属性
+                allA[i].num = i;
+
+                allA[i].onclick = function () {
+
+                    // 关闭自动切换的定时器
+                    clearInterval(timmer);
+
+                    // 获取点击的超链接的索引，并设置为index
+                    index = this.num;
+
+                    // 切换图片
+                    //imglist.style.left = -520 * index + "px";
+
+                    setA();
+
+                    // 使用 定时器tools.js 中的move函数来切换图片
+                    move(imglist, "left", -520 * index, 25, function () {
+                        // 动画执行完毕，开启自动切换
+                        autoChange();
+                    });
+                };
+            }
+
+            // 自动切换图片
+            autoChange();
+
+            // 创建一个方法来设置选中的a
+            function setA() {
+
+                if (index >= imgArr.length - 1) {
+                    index = 0;
+                    imglist.style.left = 0 + "px";
+                }
+                // 遍历所有a并将他们的背景颜色s设置为半透明红色
+                for (var i = 0; i < allA.length; i++) {
+                    allA[i].style.backgroundColor = "";
+                    // 此处设置的是内联样式，优先级比:hover高，点击一次后，:hover样式消失
+                    // 如果是空串，则会使用内部样式
+                }
+
+                // 将选中的a设置为蓝色
+                allA[index].style.backgroundColor = "blue";
+            };
+
+            var timmer;
+            // 创建一个函数永凯开启自动切换图片
+            function autoChange() {
+                timmer = setInterval(() => {
+                    index++;
+                    index %= imgArr.length;
+                    move(imglist, "left", -520 * index, 25, function () {
+                        setA();
+                    });
+                }, 1000);
+            };
+        };
+    </script>
+</head>
+
+<body>
+    <div id="outer">
+        <ul id="imglist">
+            <li><img src="./image/somepictures/IMG_2028(20201116-125002).PNG" /></li>
+            <li><img src="./image/somepictures/IMG_2030(20201117-123818).JPG" /></li>
+            <li><img src="./image/somepictures/IMG_2031(20201117-123818).JPG" /></li>
+            <li><img src="./image/somepictures/IMG_2032(20201116-173634).JPG" /></li>
+            <li><img src="./image/somepictures/IMG_2033(20201117-123818).JPG" /></li>
+            <li><img src="./image/somepictures/IMG_2034(20201116-173643).JPG" /></li>
+            <li><img src="./image/somepictures/IMG_2028(20201116-125002).PNG" /></li>
+        </ul>
+        <!-- 创建导航按钮 -->
+        <div id="navDiv">
+            <a href="#"></a>
+            <a href="#"></a>
+            <a href="#"></a>
+            <a href="#"></a>
+            <a href="#"></a>
+            <a href="#"></a>
+        </div>
+    </div>
+</body>
+
+</html>

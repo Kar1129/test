@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        window.onload = function () {
+            var btn = document.getElementById("btn");
+            btn.onclick = function () {
+                // banck()，与浏览器后退一样
+                history.back();
+                // forward()，与浏览器前进一样
+                history.forward();
+                // go()，跳转到指定页面，需要一个整数作为参数
+                // 整数向前跳转n个页面，负数向后挑n个页面
+                history.go(1);
+                history.go(-2);
+            };
+        };
+    </script>
+</head>
+
+<body>
+    <button id="btn">click</button>
+    <h1>history.html</h1>
+    <a href="./tmp.html">去tmp.html</a>
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test</title>
+    <script>
+        window.onload = function () { //在整个页面加载完成之后    将js代码写在前面
+            var btn = document.getElementById("btn");
+            btn.onclick = function () {
+                alert(1);
+            }
+            var all = document.all;
+            console.log(all);
+
+        }
+    </script>
+</head>
+
+<body>
+    <button id="btn">i am a button</button>
+    <div class="box1">
+        <div>123</div>
+    </div>
+    <h1>test.html</h1>
+    <a href="./history.html">去history.html</a>
+</body>
+<!-- <script>                //将JS代码写在后面不需要window.onload
+    var btn = document.getElementById("btn");
+    btn.onclick = function () {
+        alert(1);
+    }
+</script> -->
+
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box1 {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: absolute;
+        }
+    </style>
+    <script>
+        //使div根据方向键向不同方向移动
+        window.onload = function () {
+            var box1 = document.getElementById("box1");
+
+            //   onkeydown  如果一直按着某个按键不松手，事件会一直触发
+            //  当onkeydown连续触发时，第1次和第2次之间间隔会长一点，其他的会非常快
+            //  这种设置是为了防止误操作
+
+            // 定义一个变量来表示移动速度
+            var speed = 10;
+
+            // 创建一个变量表示方向
+            var dir = 0;
+
+            // 开启一个定时器控制div移动
+            setInterval(() => {
+                // 左37    上38    右39    下40
+
+
+                switch (dir) {
+                    case 37:
+                        box1.style.left = box1.offsetLeft - speed + "px";
+                        break;
+                    case 38:
+                        box1.style.top = box1.offsetTop - speed + "px";
+
+                        break;
+                    case 39:
+                        box1.style.left = box1.offsetLeft + speed + "px";
+                        break;
+                    case 40:
+                        box1.style.top = box1.offsetTop + speed + "px";
+                        break;
+
+                };
+            }, 30);
+
+
+
+            document.onkeydown = function (event) {
+                event = event || window.event;
+
+                // 如果用户按了ctrl后，速度加快
+                if(event.ctrlKey){
+                    speed = 50;
+                }else{
+                    speed = 10;
+                }
+
+                // 使dir等于按键值
+                dir = event.keyCode;
+
+            };
+            document.onkeyup = function () {
+                dir = 0;
+            };
+        };
+    </script>
+</head>
+
+<body>
+    <div id="box1"></div>
+</body>
+
+</html>

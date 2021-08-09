@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box1 {
+            width: 100px;
+            height: 100px;
+            background-color: skyblue;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            /*
+             *   当鼠标滚轮向下滚动时，box1变长
+             *   鼠标滚轮往上滚动时，box1变短
+             */
+            var box1 = document.getElementById("box1");
+
+            // 火狐不支持，在火狐中需使用DOMMouseScroll，由addEventListener函()数绑定
+            box1.onmousewheel = function (event) {
+
+                event = event || window.event;
+                // 判断滚轮的滚动方向
+                // wheelDelta不看大小，只看正负， 向上正值，向下负值
+                // wheelDelta属性火狐不支持
+                //var wd = event.wheelDelta;
+
+                // 火狐中使用detail来获取滚动方向
+                // 向上负值，向下正值
+                //var firefoxwd = event.detail;
+
+                if (event.wheelDelta > 0 || event.detail < 0) {
+                    // 向上滚，box1变短
+                    if (parseInt(box1.style.height) <= 50) {
+                        // 设置最小值，当它是最小值时，不再继续变小
+                    } else {
+                        box1.style.height = box1.clientHeight - 10 + "px";
+                    }
+
+
+                } else {
+                    // 向下滚，box1变长
+                    box1.style.height = box1.clientHeight + 10 + "px";
+                }
+
+                // 火狐中通过addEventListener()方法绑定函数，取消默认行为不能用return false
+                // 需要使用event来取消默认行为，但是IE8不支持
+                //event.preventDefault();
+
+                event.preventDefault && event.preventDefault();
+
+                // 当滚轮盾冬时，如果浏览器有滚动条，滚动条会随之滚动
+                // 取消浏览器默认行为
+                return false;
+            };
+
+            bind(box1, "DomMouseScroll", box1.onmousewheel);
+        };
+
+        function bind(obj, eventStr, callBack) {
+            if (obj.addEventListener) {
+                obj.addEventListener(eventStr, callBack);
+            } else {
+                // this是window
+                //obj.attachEvent("on" + eventStr, callBack);
+
+                // this由调用方式决定
+                // 修改函数的this
+                // this是btn1
+                obj.attachEvent("on" + eventStr, function () {
+                    // 在匿名函数中调用回调函数
+                    callBack.call(obj);
+                });
+            }
+        };
+    </script>
+</head>
+
+<body style="height: 2000px;">
+    <div id="box1"></div>
+</body>
+
+</html>

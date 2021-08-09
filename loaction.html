@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        window.onload = function () {
+            var btn = document.getElementById("btn");
+            btn.onclick = function () {
+                // 如果将location属性改为一个完整路径或相对路径
+                // 则页面会自动跳转并生成历史记录
+                //location = "https://www.baidu.com";
+                //location = "test.html";// 相对路径
+
+                // assign()，跳转到其他页面，与修改location一样，会生成历史记录
+                location.assign("https://www.baidu.com");
+                // reload()重新加载当前界面，刷新
+                location.reload(true);  // 添加true表示强制清空缓存
+                // replace()，用一个新页面替换当前页面，不会生成历史记录
+                location.replace("https://www.baidu.com")
+            };
+        };
+    </script>
+</head>
+
+<body>
+    <button id="btn">click</button>
+    <h1>location.html</h1>
+    ><input type="text" />
+    <a href="./tmp.html">去tmp.html</a>
+</body>
+
+</html>

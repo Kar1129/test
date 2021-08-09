@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        window.onload = function () {
+            // appendChild
+            // 创建一个新的 div 元素
+            let newDiv1 = document.createElement("div");
+            // 创建文本节点  给它一些内容
+            let newContent1 = document.createTextNode("Hi there and greetings!");
+            // 添加文本节点 到这个新的 div 元素
+            newDiv1.appendChild(newContent1);
+            // 获取添加标签位置的前面一个标签或者父标签
+            var div1 = document.getElementById("div1");
+            // 在父标签中或者前面一个标签的后面添加创建的标签
+            div1.appendChild(newDiv1);
+
+            // insertBofore
+            // 创建一个新的 div 元素
+            let newDiv2 = document.createElement("div");
+            // 创建文本节点  给它一些内容
+            let newContent2 = document.createTextNode("hello hello hello");
+            // 添加文本节点 到这个新的 div 元素
+            newDiv2.appendChild(newContent2);
+            // 获取添加标签位置的前面一个标签或者父标签
+            var div1 = document.getElementById("div1");
+            // 父节点.insertBefore(新节点，旧节点)    插入到父节点里的旧节点之前
+            document.body.insertBefore(newDiv2, div1);
+
+            // replaceChild
+            // 创建一个新的 div 元素
+            let newDiv3 = document.createElement("div");
+            // 创建文本节点  给它一些内容
+            let newContent3 = document.createTextNode("replacediv1");
+            // 添加文本节点 到这个新的 div 元素
+            newDiv3.appendChild(newContent3);
+            // 获取添加标签位置的前面一个标签或者父标签
+            var div1 = document.getElementById("div1");
+            // 父节点.replaceChild(新节点，旧节点)    在父节点里用新节点替换旧节点
+            document.body.replaceChild(newDiv3, div1);
+
+            // removeChild
+            // 获取要被删除的节点
+            var div2 = document.getElementById("div2");
+            // 父节点.removeChild(被删除的节点)
+            // div2.parentNode.removeChild(div2);
+            document.body.removeChild(div2);
+
+            // innerHTML
+            document.body.innerHTML += "<div>divinnerhtml</div>";
+
+            // appendChild
+            var li1 = document.createElement("li");
+            var ct1 = document.createTextNode("c");
+            li1.appendChild(ct1);
+            var num = document.getElementById("num");
+            num.appendChild(li1);
+
+            // insertBefore
+            var li2 = document.createElement("li");
+            var ct2 = document.createTextNode("0");
+            li2.appendChild(ct2);
+            var num = document.getElementById("num");
+            var lia = document.getElementById("lia");
+            num.insertBefore(li2, lia);
+
+            // replaceChild
+            var li3 = document.createElement("li");
+            var ct3 = document.createTextNode("replaced");
+            li3.appendChild(ct3);
+            var num = document.getElementById("num");
+            var lia = document.getElementById("lia");
+            num.replaceChild(li3, lia);
+
+            //removeChild
+            var num = document.getElementById("num");
+            var lib = document.getElementById("lib");
+            //num.removeChild(lia);    replaceChild替换lia后lia已被删除
+            // lib.parentNode.removeChild(div2);
+            num.removeChild(lib);
+
+            // innerHTML
+            var num = document.getElementById("num");
+            num.innerHTML += "<li>innerhtml</li>" ;
+        }
+    </script>
+</head>
+
+<body>
+    <div id="div1">The text above has been created dynamically.</div>
+    <div id="div2">remove</div>
+    <ul id="num">
+        <li id="lia">a</li>
+        <li id="lib">b</li>
+    </ul>
+</body>
+
+</html>

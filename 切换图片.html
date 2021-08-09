@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        img {
+            height: 500px;
+            width: 500px;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var img1 = document.getElementById("img1");
+            var btn1 = document.getElementById("btn1");
+            var btn2 = document.getElementById("btn2");
+            // 创建一个数组保存图片路径
+            var imgArr = ["./image/somepictures/IMG_2028(20201116-125002).PNG",
+                "./image/somepictures/IMG_2030(20201117-123818).JPG",
+                "./image/somepictures/IMG_2031(20201117-123818).JPG",
+                "./image/somepictures/IMG_2032(20201116-173634).JPG",
+                "./image/somepictures/IMG_2033(20201117-123818).JPG",
+                "./image/somepictures/IMG_2034(20201116-173643).JPG"
+            ];
+            // 创建一个变量保存当前图片索引
+            var imgIndex = 0;
+            // 创建一个变量保存定时器的标识
+            var timer;
+            btn1.onclick = function () {
+                // 防止多次点击btn1按钮开启多个定时器，只能关闭最后新开启的定时器
+                clearInterval(timer);
+
+                timmer = setInterval(function () {
+                    imgIndex++;
+
+                    if (imgIndex === imgArr.length) {
+                        imgIndex = 0;
+                    }
+                    img1.src = imgArr[imgIndex];
+                    //imgIndex++;
+
+                }, 1000);
+            };
+            btn2.onclick = function () {
+                clearInterval(timmer);
+            };
+
+        };
+    </script>
+</head>
+
+<body>
+    <img id="img1" src="./image/somepictures/IMG_2028(20201116-125002).PNG" />
+    <button id="btn1">start</button>
+    <button id="btn2">end</button>
+</body>
+
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        a,
+        img {
+            border: 0px;
+            text-decoration: none;
+        }
+
+        body {
+            font: 12px/180% Arial, Helvetica, sans-serif, "楷体";
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="./二级菜单css.css">
+    <script src="./类tools.js"></script>
+    <script src="./定时器tools.js"></script>
+    <script>
+        window.onload = function () {
+
+            var menuSpan = document.querySelectorAll(".menuSpan");
+
+            // 创建一个变量，来保存当前正在打开的菜单
+            var openDiv = menuSpan[0].parentNode;
+
+            for (var i = 0; i < menuSpan.length; i++) {
+                menuSpan[i].onclick = function () {
+                    var parentDiv = this.parentNode;
+
+                    toggleMenu(parentDiv);
+
+                    // // 在切换类之前获取元素的高度
+                    // var begin = parentDiv.offsetHeight;
+
+                    // toggleClass(parentDiv, "collapsed");
+
+                    // // 在切换类之后获取元素的高度
+                    // var end = parentDiv.offsetHeight;
+
+                    // // 动画效果就是begin向end过度
+                    // // 将元素高度重置为begin
+                    // parentDiv.style.height = begin + "px";
+                    // // 执行动画
+                    // move(parentDiv, "height", end, 10, function () {
+                    //     // 动画执行完毕，删除内联样式
+                    //     parentDiv.style.height = "";
+                    // });
+
+                    // 判断openDiv和parentDiv是否相同
+                    if (openDiv != parentDiv && !haveClass(openDiv, "collapsed")) {
+                        // 关闭已打开的div
+                        //addClass(openDiv, "collapsed");
+                        /*
+                         * 为了统一处理过渡的效果，将这里的addClass()也修改为toggleClass()
+                         * 而这里不需要删除的功能，只需要添加
+                         */
+                        //toggleClass(openDiv, "collapsed");
+                        toggleMenu(openDiv);
+                    }
+
+                    openDiv = parentDiv;
+                };
+            }
+
+            // 定义一个方法用来切换菜单的折叠和显示状态
+            function toggleMenu(obj) {
+                // 在切换类之前获取元素的高度
+                var begin = obj.offsetHeight;
+
+                toggleClass(obj, "collapsed");
+
+                // 在切换类之后获取元素的高度
+                var end = obj.offsetHeight;
+
+                // 动画效果就是begin向end过度
+                // 将元素高度重置为begin
+                obj.style.height = begin + "px";
+                // 执行动画
+                move(obj, "height", end, 10, function () {
+                    // 动画执行完毕，删除内联样式
+                    obj.style.height = "";
+                });
+            };
+        };
+    </script>
+</head>
+
+<body>
+    <div id="my_menu" class="sdmenu">
+        <div>
+            <span class="menuSpan">在线工具</span>
+            <a href="#">a</a>
+            <a href="#">b</a>
+            <a href="#">c</a>
+            <a href="#">d</a>
+            <a href="#">e</a>
+            <a href="#">f</a>
+        </div>
+        <div class="collapsed">
+            <span class="menuSpan">支持我们</span>
+            <a href="#">g</a>
+            <a href="#">h</a>
+            <a href="#">i</a>
+        </div>
+        <div class="collapsed">
+            <span class="menuSpan">合作伙伴</span>
+            <a href="#">j</a>
+            <a href="#">k</a>
+            <a href="#">l</a>
+            <a href="#">m</a>
+        </div>
+        <div class="collapsed">
+            <span class="menuSpan">测试电流</span>
+            <a href="#">n</a>
+            <a href="#">o</a>
+            <a href="#">p</a>
+            <a href="#">q</a>
+        </div>
+    </div>
+</body>
+
+</html>

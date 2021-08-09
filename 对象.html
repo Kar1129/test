@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+         * Object构造函数模式
+         *      先创建空Object对象，再动态添加属性/方法
+         *      适用于起始时不确定对象内部数据
+         *      问题：语句太多
+         */
+        var p1 = new Object();
+        p1.name = "sdaf";
+        p1.age = 12;
+        p1.setName = function (name) {
+            this.name = name;
+        }
+        // test
+        p1.setName("jack");
+        console.log(p1.name, p1.age);
+
+        console.log("------------");
+
+
+        /*
+         * 对象字面量模式
+         *      使用{}创建对象，同时指定谁能够/方法
+         *      适用于起始时对象内部数据是确定的
+         *      问题：如果创建多个对象，会有重复代码
+         */
+        var p2 = {
+            name: "tom",
+            age: 12,
+            setName: function (name) {
+                this.name = name;
+            }
+        }
+        // test
+        console.log(p2.name, p2.age);
+        p2.setName("ytu");
+        console.log(p2.name, p2.age);
+
+        console.log("------------");
+
+        /*
+         * 工厂模式
+         *      通过工厂函数动态创建对象并返回
+         *      适用于需要创建多个对象
+         *      问题：对象没有一个具体类型，都是Object
+         */
+        function createPreson(name, age) { // 返回一个对象的函数 --> 工厂函数
+            var obj = {
+                name: name,
+                age,
+                age,
+                setName: function (name) {
+                    this.name = name;
+                }
+            }
+            return obj;
+        };
+        // test
+        var p3 = createPreson('vcxbx', 34);
+        var p4 = createPreson('uop', 23);
+        console.log(p3.name, p3.age);
+        console.log(p4.name, p4.age);
+
+        // p3、p4是Object类型
+        function createStudent(name, price) {
+            var obj = {
+                name: name,
+                price: price
+            }
+            return obj;
+        };
+        var s = createStudent("rey", 11);
+        // s是Object类型
+
+        console.log("------------");
+
+        /*
+         * 自定义构造函数模式
+         *      自定义构造函数，通过new创建对象
+         *      适用于需要创建多个类型确定的对象
+         *      问题：每个对象都有相同的数据，浪费内存
+         */
+        function Person(name, age) { // 定义类型
+            this.name = name;
+            this.age = age;
+            this.setName = function (name) {
+                this.name = name;
+            }
+        };
+        // test
+        var p5 = new Person("uio", 13);
+        p5.setName("zcx");
+        console.log(p5.name, p5.age);
+        console.log(p5);
+
+        console.log("------------");
+
+        /*
+         * 构造函数 + 原型的组合模式
+         *      自定义构造函数，属性再函数中初始化，方法添加到原型上
+         *      适用于需要创建多个类型确定的对象
+         */
+        function betterPerson(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+
+        betterPerson.prototype.setName = function (name) {
+            this.name = name;
+        }
+        var p6 = new betterPerson("fgh", 45);
+        var p7 = new betterPerson("ert", 14);
+        console.log(p6, p7);
+    </script>
+
+</body>
+
+</html>

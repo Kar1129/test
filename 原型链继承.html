@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <script>
+        /*
+         * 原型链继承
+         *      子类型的原型为父类型的对象
+         *      子类型的原型的constructor指向子类型
+         *  缺点：
+         *      当原型中存在引用类型值时，实例可以修改其值。
+         */
+        // 父类型
+        function supper() {
+            this.supProp = "super property";
+        };
+        supper.prototype.showSup = function () {
+            console.log(this.supProp);
+        };
+        // 子类型
+        function sub() {
+            this.subProp = "sub property";
+        };
+        sub.prototype.shwSub = function () {
+            console.log(this.subProp);
+        };
+        // 子类型的原型为父类型的对象
+        sub.prototype = new supper();
+        // 子类型的原型的constructor指向子类型
+        sub.prototype.constructor = sub; // 不设置的话子类型的constructor指向父类型
+
+        sub.prototype.showSub = function () {
+            console.log(this.subProp);
+        }
+
+        var sub1 = new sub();
+        sub1.showSup();
+        sub1.showSub();
+
+        console.log(sub1);
+
+        console.log("---------");
+
+        /*
+         * 借用构造函数继承(修改构造函数的this指向)
+         *      在子类型中通过call()调用父类型的构造函数
+         * 缺点：
+         *      只能继承父对象的实例属性和方法，不能继承父对象原型属性和方法
+         *      无法实现函数复用，每个子对象都有父对象实例的副本，性能欠优
+         */
+        function Person(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+
+        function Student(name, age, price) {
+            // 通过call()调用父类型的构造函数
+            Person.call(this, name, age); // 相当于 this.name = name;this.age = age;
+            // this.name = name;
+            // this.age = age;
+            this.price = price;
+        }
+        var s = new Student("tom", 12, 45);
+        console.log(s.name, s.age, s.price);
+
+        console.log("---------");
+        /*
+         * 组合继承
+         *
+         * 优点：
+         *      可以复用原型上定义的方法
+         *      可以保证每个函数都有自己的属性，可以解决原型中引用类型值被修改的问题
+         * 缺点：
+         *      父类构造函数会被调用2次     1.S.prototype = new P();  2.P.call(this);
+         */
+        function P(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        P.prototype.setName = function (name) {
+            this.name = name;
+        }
+
+        function S(name, age, price) {
+            P.call(this, name, age); // 为了得到属性
+            this.price = price;
+        }
+        S.prototype = new P(); // 为了得到方法
+        S.prototype.constructor = S; // 修正constructor属性
+        S.prototype.setPrice = function (price) {
+            this.price = price;
+        }
+
+        var s1 = new S("tom", 12, 45);
+        s1.setName("uio");
+        s1.setPrice("14312");
+        console.log(s1.name, s1.age, s1.price);
+    </script>
+</body>
+
+</html>

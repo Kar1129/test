@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #box1 {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: absolute;
+            left: 0px;
+            /* 不设置的话IE浏览器用getstyle()获得的是auto */
+        }
+
+        #box2 {
+            width: 100px;
+            height: 100px;
+            background-color: yellow;
+            position: absolute;
+            left: 0px;
+            /* 不设置的话IE浏览器用getstyle()获得的是auto */
+            top: 200px;
+        }
+    </style>
+    <script src="./定时器tools.js"></script>
+    <script>
+        window.onload = function () {
+            var box1 = document.getElementById("box1");
+            var btn1 = document.getElementById("btn1");
+            var btn2 = document.getElementById("btn2");
+            var btn3 = document.getElementById("btn3");
+            var btn4 = document.getElementById("btn4");
+            // var timmer;
+            // btn1.onclick = function () {
+            //     clearInterval(timmer);
+            //     timmer = setInterval(() => {
+            //         var oldValue = parseInt(getStyle(box1, "left"));
+            //         var newValue = oldValue + 10;
+            //         if (newValue > 500) {
+            //             newValue = 500;
+            //         }
+            //         box1.style.left = newValue + "px";
+            //         if (newValue === 500) {
+            //             clearInterval(timmer);
+            //         }
+            //     }, 30);
+            // };
+            // btn2.onclick = function () {
+            //     clearInterval(timmer);
+            //     timmer = setInterval(() => {
+            //         var oldValue = parseInt(getStyle(box1, "left"));
+            //         var newValue = oldValue - 10;
+            //         if (newValue < 0) {
+            //             newValue = 0;
+            //         }
+            //         box1.style.left = newValue + "px";
+            //         if (newValue === 0) {
+            //             clearInterval(timmer);
+            //         }
+            //     }, 30);
+            // };
+
+            btn1.onclick = function () {
+                move(box1, "left", 500, 20);
+            };
+            btn2.onclick = function () {
+                move(box1, "left", 0, 10);
+            };
+            btn3.onclick = function () {
+                move(box2, "left", 500, 10);
+            };
+            btn4.onclick = function () {
+                // move(box2, "width", 500, 10);
+                move(box2, "top", 500, 10, function(){
+                    move(box2, "height", 500, 10);
+                });
+                //move(box2, "height", 500, 10);
+            };
+        };
+
+
+        
+    </script>
+</head>
+
+<body>
+    <button id="btn1">使red-box向右移动</button>
+    <button id="btn2">使red-box向左移动</button>
+    <button id="btn3">使yellow-box向右移动</button>
+    <button id="btn4">测试</button>
+    <br />
+    <br />
+    <div id="box1"></div>
+    <div id="box2"></div>
+    <div style="width: 0px;height: 1000px;border-left: 1px black solid;position: absolute;left: 500px;top: 0px;"></div>
+</body>
+
+</html>

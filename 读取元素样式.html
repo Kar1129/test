@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box1 {
+            width: 100px;
+            height: 200px;
+            background-color: red;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var box1 = document.getElementById("box1");
+            var btn1 = document.getElementById("btn1");
+            btn1.onclick = function () {
+                // 获取元素当前显示的样式
+
+                // currentStyle属性只有IE浏览器支持
+                // alert(box1.currentStyle.width);
+
+                // 在其他浏览器中使用getComputedStyle()方法
+                // 需要两个参数
+                // 1: 要获取样式的元素
+                // 2: 可以传递一个伪元素，一般都传null
+                // var obj = getComputedStyle(box1,null);
+                // alert(obj.width);
+
+                //alert(getStyle(box1, "width"));
+
+                // clientWidth
+                // clineHeight
+
+                alert(box1.clientWidth+ box1.clientHeight);
+            };
+            // 定义一个函数用来获取指定元素的房前的样式
+            // 参数：  obj  要获取样式的元素
+            //         name 要获取的样式名
+
+            function getStyle(obj, name) {
+                // 只写getComputedStyle,是变量，需要在作用域链中去寻找，没找到会报错
+                // 加上window，getComputedStyle变成对象的属性，若无则返回undefined
+                if (window.getComputedStyle) {
+                    return getComputedStyle(obj, null)[name];
+                } else {
+                    return obj.currentStyle[name];
+                }
+            };
+        };
+    </script>
+</head>
+
+<body>
+    <button id="btn1">click</button>
+    <div id="box1"></div>
+</body>
+
+</html>

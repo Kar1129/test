@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #box1 {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            /* 开启box1的绝对定位 */
+            position: absolute;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            // 使div可以跟随鼠标移动
+
+            var box1 = document.getElementById("box1");
+            document.onmousemove = function (event) {
+                // 解决兼容问题
+                event = event || window.event;
+
+                var x = event.clientX;
+                var y = event.clientY;
+                // // 设置div的偏移量
+                // // div的偏移量时相对整个网页的，clientX、clientY是相对可见窗口的
+                // box1.style.left = x + "px";
+                // box1.style.top = y + "px";
+
+                // // 获取滚动条滚动的距离
+                // var st = document.body.scrollTop;
+                // // chrome认为浏览器的滚动条时body的
+                // // 但火狐等浏览器认为浏览器的滚动条是html的
+                // var st = document.documentElement.scrollTop;
+
+                var st = document.body.scrollTop || document.documentElement.scrollTop;
+                var sl = document.body.scrollLeft || document.documentElement.scrollLeft;
+                // var pagex = event.pageX;
+                // var pagey = event.pageY;
+                // pageX、pageY可以获取鼠标相对整个页面的坐标， IE8不支持
+                box1.style.left = x + sl + "px";
+                box1.style.top = y + st + "px";
+            };
+
+
+            // 取消事件冒泡
+            var box2 = document.getElementById("box2");
+            box2.onmousemove = function (event) {
+                event = event || window.event;
+                event.cancelBubble = true;
+            };
+        };
+    </script>
+</head>
+
+<body style="height: 1000px;width: 2000px;">
+    <div id="box2" style="height: 500px;width: 500px;background-color: green;"></div>
+    <div id="box1"></div>
+</body>
+
+</html>

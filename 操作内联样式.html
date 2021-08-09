@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box1 {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+        }
+    </style>
+    <!-- 在CSS中的样式名称中含有“-”，如background-color，
+        需要将这种样式名修改为驼峰命名法，如backgroundColor -->
+    <script>
+        window.onload = function () {
+            // 点击按钮后修改box1的大小
+
+            // 获取box1
+            var box1 = document.getElementById("box1");
+
+            // 获取按钮
+            var btn1 = document.getElementById("btn1");
+
+            // 为按钮绑定单击相应函数
+            btn1.onclick = function () {
+                // 通过style属性设置的样式都是内联样式
+                // 而内联样式具有较高的优先级，所以通过js修改的样式往往会立即显示
+                // 但是如果在样式中写了 !important，则此样式具有最高优先级
+                // js无法对其进行修改
+
+                // 修改box1的宽度
+                box1.style.width = "400px";
+
+                // 修改box1的高度
+                box1.style.height = "400px";
+
+                // 修改box1的颜色
+                box1.style.backgroundColor = "yellow";
+
+            };
+
+            // 获取元素样式
+            // 通过style属性读取的样式都是内联样式
+            // 无法读取样式表中的样式
+            var btn2 = document.getElementById("btn2");
+            btn2.onclick = function () {
+                alert(box1.style.width);
+            };
+        };
+    </script>
+</head>
+
+<body>
+    <button id="btn1">click</button>
+    <button id="btn2">获取元素样式</button>
+    <div id="box1"></div>
+</body>
+
+</html>
